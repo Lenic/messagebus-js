@@ -95,13 +95,25 @@ MessageBus.prototype.publish = function (key) {
   }
 
   var args = _.toArray(arguments).slice(1);
+  var result = {};
+
 
   var subscribers = this.get(key);
-  _.each(subscribers, function (events) {
+  _.each(subscribers, function (events, k) {
+    var message = undefined;
     _.each(events, function (e) {
-      e.apply(null, args);
-    })
-  })
+      message = e.apply(null, message === undefined ? args : [message]);
+    });
+
+    result[k] = message;
+  });
+
+  if (key instanceof RegExp) {
+    return result;
+  } else {
+    var keys = _.keys(result)
+    return keys.length ? result[keys[0]] : undefined;
+  }
 };
 
 module.exports = MessageBus;
