@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var MessageBox = require('../src');
+var MessageBus = require('../src');
 var i18n = require('../src/i18n');
 
 describe('test method: get', function () {
@@ -8,13 +8,13 @@ describe('test method: get', function () {
   var keyError = new RegExp(i18n.keyError);
 
   it('first is emtpy.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
 
     expect(mb.get(key)).to.be.empty;
   });
 
   it('get by key.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
     var localKey = key + 1;
 
     mb.on(key, func);
@@ -25,7 +25,7 @@ describe('test method: get', function () {
   });
 
   it('get all subscribe.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
     var localKey = key + 1;
 
     mb.on(key, func);

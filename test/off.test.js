@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var MessageBox = require('../src');
+var MessageBus = require('../src');
 var i18n = require('../src/i18n');
 
 describe('test method: off', function () {
@@ -8,7 +8,7 @@ describe('test method: off', function () {
   var keyError = new RegExp(i18n.keyError);
 
   it('remove appointed function.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
 
     mb.on(key, func);
     expect(mb.get(key)).to.be.deep.equal({[key]:[func]});
@@ -18,7 +18,7 @@ describe('test method: off', function () {
   })
 
   it('key must be string type.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
 
     expect(function () {mb.off(null, func);}).to.throw(keyError);
     expect(function () {mb.off(undefined, func);}).to.throw(keyError);
@@ -31,7 +31,7 @@ describe('test method: off', function () {
   });
 
   it('RegExp can remove key directly.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
 
     mb.on(key, func);
     expect(mb.get(key)).to.have.all.keys([key]);
@@ -41,7 +41,7 @@ describe('test method: off', function () {
   });
 
   it('RegExp can remove function for suited items.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
     var localKey = 1 + key;
     var localFunc = function () {};
 
@@ -56,7 +56,7 @@ describe('test method: off', function () {
   });
 
   it('clear method is correct: no second parameter.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
     var localFunc = function () {};
 
     mb.on(key, func);
@@ -68,7 +68,7 @@ describe('test method: off', function () {
   });
 
   it('RegExp can clear suited items: no second parameter.', function () {
-    var mb = MessageBox();
+    var mb = MessageBus();
     var localKey = key + 1;
     var localFunc = function () {};
 
