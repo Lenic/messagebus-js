@@ -17,7 +17,7 @@ $ npm run test
 ## Example
 
 ```js
-var mb = MessageBox();
+var mb = MessageBus();
 var func = function (arg) {
   console.log('func', arg);
 };
